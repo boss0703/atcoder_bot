@@ -1,3 +1,5 @@
-API_TOKEN = "xoxb-1704914671398-1696993593943-wljX3xmCPSjEn0kA23FjBkxG"
+import os
+from boto.s3.connection import S3Connection
+API_TOKEN = S3Connection(os.environ['API_TOKEN'])
 DEFAULT_REPLY = "でふぉるとの返信"
 PLUGINS = ['plugins']

@@ -51,12 +51,14 @@ def info(channel, slack):
 
 
 def main():
+    print('-- main --')
     # Botを動かす前にそのチャンネルにBotアプリケーションを追加することを忘れずに
     channel = "test"
     # slack api token 設定
     slack = Slacker(slackbot_settings.API_TOKEN)
     # 月曜であることの確認
     if datetime.datetime.today().weekday() == 0:
+        print('-- info --')
         info(channel, slack)
 
     bot = Bot()

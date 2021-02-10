@@ -41,9 +41,11 @@ def info(channel, slack):
     :return:
     """
 
+    print("-- scrape start --")
     # スクレイピングを行い、コンテスト情報を格納する
     active_contests = scrape.get_active_contest()
     upcoming_contests = scrape.get_upcoming_contest()
+    print("-- scrape finish --")
 
     if len(active_contests) != 0:
         make_message(channel, slack, active_contests, "*[開催中のコンテスト一覧]*")
@@ -57,10 +59,12 @@ def info(channel, slack):
 
 
 def main():
+    print('-- main --')
     # Botを動かす前にそのチャンネルにBotアプリケーションを追加することを忘れずに
     channel = "test"
     # slack api token 設定
     slack = Slacker(slackbot_settings.API_TOKEN)
+    print('-- info --')
     # 月曜であることの確認 (テスト用に削除)
     # if datetime.datetime.today().weekday() == 0:
     info(channel, slack)

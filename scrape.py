@@ -50,8 +50,8 @@ def get_upcoming_contest():
     """
     2週間以内に開催されるコンテストを取得する。
 
-    :return:
-    :rtype:
+    :return: re_contests
+    :rtype: list
     """
     re_contests = []
     # コンテスト一覧ページの情報を取得

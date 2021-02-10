@@ -33,6 +33,14 @@ def make_message(channel, slack, contests, message):
 
 
 def info(channel, slack):
+    """
+    コンテスト情報をslackに投稿する
+
+    :param channel:
+    :param slack:
+    :return:
+    """
+
     # スクレイピングを行い、コンテスト情報を格納する
     active_contests = scrape.get_active_contest()
     upcoming_contests = scrape.get_upcoming_contest()
@@ -53,9 +61,9 @@ def main():
     channel = "test"
     # slack api token 設定
     slack = Slacker(slackbot_settings.API_TOKEN)
-    # 月曜であることの確認
-    if datetime.datetime.today().weekday() == 0:
-        info(channel, slack)
+    # 月曜であることの確認 (テスト用に削除)
+    # if datetime.datetime.today().weekday() == 0:
+    info(channel, slack)
 
     bot = Bot()
     bot.run()

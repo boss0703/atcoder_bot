@@ -1,6 +1,6 @@
 import datetime
 import re
-from urllib import request
+import requests
 from bs4 import BeautifulSoup
 
 
@@ -12,30 +12,31 @@ def get_active_contest():
     :rtype: list
     """
     re_contests = []
-    # コンテスト一覧ページの情報を取得
-    url = "https://atcoder.jp/contests/"
-    html = request.urlopen(url)
+    # コンテスト一覧ページの情報を取得 日本語で欲しいのでlang=ja追加
+    url = "https://atcoder.jp/contests/?lang=ja"
+    res = requests.get(url).text
     # htmlのパース処理
-    soup = BeautifulSoup(html.text, "html.parser")
+    soup = BeautifulSoup(res, "html.parser")
     # div#contest-table-activeに開催中のコンテスト情報が格納されている
     contests_div = soup.find("div", id="contest-table-active")
     # 開催中のコンテストが無い場合
     if contests_div is None:
         return re_contests
-    contests_tr = soup.find_all("tr")
+
+    contests_tr = contests_div.tbody.find_all("tr")
     # trタグの内容(コンテスト名, URL, 終了日時)を格納
     for tr in contests_tr:
         # "contests"の文字列を含むaタグを取得
         contest_a = tr.find("a", href=re.compile("contests"))
         # aタグの中の文字(コンテスト名)を取得
-        contest_name = contest_a.string
+        contest_name = contest_a.text
         # URL + aタグのurl情報(コンテストページのurl)
         contest_url = url + contest_a.get("href")
 
         # コンテストページの取得
-        contest_html = request.urlopen(contest_url)
+        res = requests.get(url).text
         # コンテストページ遷移
-        soup = BeautifulSoup(contest_html, "html.parser")
+        soup = BeautifulSoup(res,  "html.parser")
         # "fixtime-full"クラス属性を持つtimeタグを取得 ※classは予約語なのでclass_
         contest_fin_time = soup.find("time", class_="fixtime-full") + " 終了"
 
@@ -55,17 +56,17 @@ def get_upcoming_contest():
     """
     re_contests = []
     # コンテスト一覧ページの情報を取得
-    url = "https://atcoder.jp/contests/"
-    html = request.urlopen(url)
+    url = "https://atcoder.jp/contests/?lang=ja"
+    res = requests.get(url).text
     # htmlのパース処理
-    soup = BeautifulSoup(html.text, "html.parser")
+    soup = BeautifulSoup(res, "html.parser")
     # div#contest-table-upcomingに開催予定のコンテスト情報が格納されている
     contests_div = soup.find("div", id="contest-table-upcoming")
     # 開催予定のコンテストが無い場合
     if contests_div is None:
         return re_contests
 
-    contests_tr = soup.find_all("tr")
+    contests_tr = contests_div.tbody.find_all("tr")
     # 今日の日時を取得(月曜日)
     today = datetime.datetime.today()
 
@@ -79,7 +80,7 @@ def get_upcoming_contest():
         # "contests"の文字列を含むaタグを取得
         contest_a = tr.find("a", href=re.compile("contests"))
         # aタグの中の文字(コンテスト名)を取得
-        contest_name = contest_a.string
+        contest_name = contest_a.text
         # URL + aタグのurl情報(コンテストページのurl)
         contest_url = url + contest_a.get("href")
         # contest_dateに" 開始"を追加

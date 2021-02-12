@@ -13,8 +13,8 @@ def get_active_contest():
     """
     re_contests = []
     # コンテスト一覧ページの情報を取得 日本語で欲しいのでlang=ja追加
-    url = "https://atcoder.jp/contests/?lang=ja"
-    res = requests.get(url).text
+    url = "https://atcoder.jp"
+    res = requests.get(url + "/contests/?lang=ja").text
     # htmlのパース処理
     soup = BeautifulSoup(res, "html.parser")
     # div#contest-table-activeに開催中のコンテスト情報が格納されている
@@ -56,8 +56,8 @@ def get_upcoming_contest():
     """
     re_contests = []
     # コンテスト一覧ページの情報を取得
-    url = "https://atcoder.jp/contests/?lang=ja"
-    res = requests.get(url).text
+    url = "https://atcoder.jp"
+    res = requests.get(url + "/contests/?lang=ja").text
     # htmlのパース処理
     soup = BeautifulSoup(res, "html.parser")
     # div#contest-table-upcomingに開催予定のコンテスト情報が格納されている

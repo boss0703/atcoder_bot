@@ -53,9 +53,9 @@ def info(channel, slack):
         slack.chat.post_message(channel, "*開催中のコンテストはありません*", as_user=True)
 
     if len(upcoming_contests) != 0:
-        make_message(channel, slack, upcoming_contests, "*[来週までのコンテスト一覧]*")
+        make_message(channel, slack, upcoming_contests, "*[再来週までのコンテスト一覧]*")
     else:
-        slack.chat.post_message(channel, "*来週までのコンテストはありません*", as_user=True)
+        slack.chat.post_message(channel, "*再来週までのコンテストはありません*", as_user=True)
 
 
 def main():

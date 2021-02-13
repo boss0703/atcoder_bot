@@ -38,7 +38,7 @@ def get_action_contest():
         # コンテストページ遷移
         soup = BeautifulSoup(res,  "html.parser")
         # "fixtime-full"クラス属性を持つtimeタグを取得 ※classは予約語なのでclass_
-        contest_fin_time = soup.find("time", class_="fixtime-full") + " 終了"
+        contest_fin_time = soup.find("time", class_="fixtime-full").text + " 終了"
 
         # 返却用の変数に値を格納
         re_contest = dict(name=contest_name, url=contest_url, time=contest_fin_time)

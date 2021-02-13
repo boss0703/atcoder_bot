@@ -23,7 +23,7 @@ def make_message(channel, slack, contests, message):
     :rtype:
     """
     for contest in contests:
-        message = message+"\n"+contest["name"]+"\n"+contest["url"]+"\n"+contest["time"]
+        message = message+"\n"+contest["time"]+"\n"+contest["name"]+"\n"+contest["url"]+"\n"
 
     # pos_messageでslackに投稿ができる
     # channelには投稿したいチャンネル

@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_active_contest():
+def get_action_contest():
     """
     現在開催中のコンテストを取得する。
 
@@ -17,8 +17,8 @@ def get_active_contest():
     res = requests.get(url + "/contests/?lang=ja").text
     # htmlのパース処理
     soup = BeautifulSoup(res, "html.parser")
-    # div#contest-table-activeに開催中のコンテスト情報が格納されている
-    contests_div = soup.find("div", id="contest-table-active")
+    # div#contest-table-actionに開催中のコンテスト情報が格納されている
+    contests_div = soup.find("div", id="contest-table-action")
     # 開催中のコンテストが無い場合
     if contests_div is None:
         return re_contests

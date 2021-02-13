@@ -43,12 +43,12 @@ def info(channel, slack):
 
     print("-- scrape start --")
     # スクレイピングを行い、コンテスト情報を格納する
-    active_contests = scrape.get_active_contest()
+    action_contests = scrape.get_action_contest()
     upcoming_contests = scrape.get_upcoming_contest()
     print("-- scrape finish --")
 
-    if len(active_contests) != 0:
-        make_message(channel, slack, active_contests, "*[開催中のコンテスト一覧]*")
+    if len(action_contests) != 0:
+        make_message(channel, slack, action_contests, "*[開催中のコンテスト一覧]*")
     else:
         slack.chat.post_message(channel, "*開催中のコンテストはありません*", as_user=True)
 

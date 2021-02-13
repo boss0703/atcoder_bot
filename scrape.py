@@ -34,7 +34,7 @@ def get_action_contest():
         contest_url = url + contest_a.get("href")
 
         # コンテストページの取得
-        res = requests.get(url).text
+        res = requests.get(contest_url).text
         # コンテストページ遷移
         soup = BeautifulSoup(res,  "html.parser")
         # "fixtime-full"クラス属性を持つtimeタグを取得 ※classは予約語なのでclass_

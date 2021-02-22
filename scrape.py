@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_active_contest():
+def get_action_contest():
     """
     現在開催中のコンテストを取得する。
 
@@ -17,8 +17,8 @@ def get_active_contest():
     res = requests.get(url + "/contests/?lang=ja").text
     # htmlのパース処理
     soup = BeautifulSoup(res, "html.parser")
-    # div#contest-table-activeに開催中のコンテスト情報が格納されている
-    contests_div = soup.find("div", id="contest-table-active")
+    # div#contest-table-actionに開催中のコンテスト情報が格納されている
+    contests_div = soup.find("div", id="contest-table-action")
     # 開催中のコンテストが無い場合
     if contests_div is None:
         return re_contests
@@ -34,11 +34,11 @@ def get_active_contest():
         contest_url = url + contest_a.get("href")
 
         # コンテストページの取得
-        res = requests.get(url).text
+        res = requests.get(contest_url).text
         # コンテストページ遷移
         soup = BeautifulSoup(res,  "html.parser")
         # "fixtime-full"クラス属性を持つtimeタグを取得 ※classは予約語なのでclass_
-        contest_fin_time = soup.find("time", class_="fixtime-full") + " 終了"
+        contest_fin_time = soup.find("time", class_="fixtime-full").text + " 終了"
 
         # 返却用の変数に値を格納
         re_contest = dict(name=contest_name, url=contest_url, time=contest_fin_time)

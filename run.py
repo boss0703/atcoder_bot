@@ -66,8 +66,8 @@ def main():
     slack = Slacker(slackbot_settings.API_TOKEN)
     print('-- info --')
     # 月曜であることの確認 (テスト用に削除)
-    # if datetime.datetime.today().weekday() == 0:
-    info(channel, slack)
+    if datetime.datetime.today().weekday() == 0:
+        info(channel, slack)
 
     bot = Bot()
     bot.run()
